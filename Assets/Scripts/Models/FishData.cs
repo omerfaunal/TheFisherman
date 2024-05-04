@@ -9,4 +9,5 @@ public class FishData : ScriptableObject
     public Texture texture;
     public GameObject inventoryItem;
     public int probability;
+    public float hardnessScaleFactor = 1;
 }

@@ -51,4 +51,6 @@ public class InventoryManagement : MonoBehaviour
             Debug.Log(item.itemName + ": " + item.quantity);
         }
     }
+
+  
 }
