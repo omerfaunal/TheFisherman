@@ -1,0 +1,4 @@
+repository "The Fisherman@omerfaunal@cloud"
+  path "/"
+    br "/main"
+    co "/main"
