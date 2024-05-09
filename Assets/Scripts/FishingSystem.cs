@@ -12,6 +12,7 @@ public class FishingSystem : MonoBehaviour
     public List<FishData> lakeFishList = new List<FishData>();
     public List<FishData> riverFishList = new List<FishData>();
     public List<FishData> seaFishList = new List<FishData>();
+    public TaskManager taskManager;
 
     public bool isThereABite = false;
     public bool hasPulled = false;
@@ -107,15 +108,12 @@ public class FishingSystem : MonoBehaviour
 
         if(success){
             InventoryManagement playerInventory = GameObject.FindGameObjectWithTag("Player").GetComponent<InventoryManagement>();
-            if (playerInventory != null)
-            {
-                if (currentFish != null)
-                {
-                    playerInventory.AddItem(currentFish.fishName, 1);
-                    playerInventory.DisplayInventory();
-                    UIManager.instance.DisplaySuccessMessage("Caught " + currentFish.fishName);
-                }              
-            }
+
+            playerInventory.AddItem(currentFish.fishName, CollectibleItemType.Fish);
+            playerInventory.DisplayInventory();
+            UIManager.instance.DisplaySuccessMessage("Caught " + currentFish.fishName);
+            taskManager.CheckTaskState();
+
         } else {
             UIManager.instance.DisplayErrorMessage("Fish got away");
         }

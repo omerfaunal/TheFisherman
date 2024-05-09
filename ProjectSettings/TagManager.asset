@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Collectible
   - FishingArea
+  - Fishing Rod
   layers:
   - Default
   - TransparentFX

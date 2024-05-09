@@ -1,3 +1,5 @@
+using System;
+
 [System.Serializable]
 
 // Create enum
@@ -12,10 +14,12 @@ public class CollectibleItem
 {
     public string itemName;
     public int quantity;
+    public CollectibleItemType type;
 
-    public CollectibleItem(string name, int count)
+    public CollectibleItem(string name, CollectibleItemType itemType)
     {
         itemName = name;
-        quantity = count;
+        quantity = 1;
+        type = itemType;
     }
 }

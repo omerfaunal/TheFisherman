@@ -216,6 +216,9 @@ MonoBehaviour:
   itemName: bucket
   quantity: 1
   inventoryLimit: 1
+  collectText: {fileID: 0}
+  errorText: {fileID: 0}
+  type: 1
 --- !u!135 &-4300016219555267924
 SphereCollider:
   m_ObjectHideFlags: 0

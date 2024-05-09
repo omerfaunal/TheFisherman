@@ -9,6 +9,7 @@ public class FishingGame : MonoBehaviour
     public RectTransform catcher;
     public RawImage fishImage;
     public bool isOverlapping = false;
+    private float tolerance=0.0001f;
 
     public Slider successSlider;
     float successIncrement = 15f;
@@ -49,14 +50,13 @@ public class FishingGame : MonoBehaviour
         successCounter = Mathf.Clamp(successCounter, failThreshold, successThreshold);
         successSlider.value = successCounter;
 
-        if(successCounter == successThreshold){
+        if(Mathf.Abs(successCounter - successThreshold) < tolerance){
            
             successCounter = 0f;
             successSlider.value = 0f;
             FishingSystem.instance.EndMiniGame(true, currentFish);
             
-        } else if(successCounter == failThreshold){
-
+        } else if(Mathf.Abs(successCounter - failThreshold) < tolerance){
             successCounter = 0f;
             successSlider.value = 0f;
             FishingSystem.instance.EndMiniGame(false, currentFish);

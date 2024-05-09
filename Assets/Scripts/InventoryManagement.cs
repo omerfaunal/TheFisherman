@@ -5,27 +5,27 @@ public class InventoryManagement : MonoBehaviour
 {
     public List<CollectibleItem> items = new List<CollectibleItem>();
 
-    public void AddItem(string itemName, int quantity)
+    public void AddItem(string itemName,CollectibleItemType type)
     {
         // Check if the item already exists in the inventory
         CollectibleItem existingItem = items.Find(item => item.itemName == itemName);
         if (existingItem != null)
         {
-            existingItem.quantity += quantity; // Increase quantity if item exists
+            existingItem.quantity += 1; // Increase quantity if item exists
         }
         else
         {
-            items.Add(new CollectibleItem(itemName, quantity)); // Add new item if not exists
+            items.Add(new CollectibleItem(itemName, type)); // Add new item if not exists
         }
     }
 
     // Optional: Method to remove item from inventory
-    public void RemoveItem(string itemName, int quantity)
+    public void RemoveItem(string itemName)
     {
         CollectibleItem existingItem = items.Find(item => item.itemName == itemName);
-        if (existingItem != null && existingItem.quantity >= quantity)
+        if (existingItem != null && existingItem.quantity >= 1)
         {
-            existingItem.quantity -= quantity;
+            existingItem.quantity -= 1;
             if (existingItem.quantity == 0)
             {
                 items.Remove(existingItem); // Remove the item if quantity is zero
@@ -48,7 +48,7 @@ public class InventoryManagement : MonoBehaviour
     {
         foreach (CollectibleItem item in items)
         {
-            Debug.Log(item.itemName + ": " + item.quantity);
+           Debug.Log(item.itemName + ": " + item.quantity);
         }
     }
 
