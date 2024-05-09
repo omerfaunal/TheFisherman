@@ -72,7 +72,6 @@ public class FishingSystem : MonoBehaviour
 
     private void PushRod()
     {
-        PullingGame pullGame = pullingGame.GetComponent<PullingGame>();
         pullingGame.SetActive(true);
     }
 
@@ -88,9 +87,11 @@ public class FishingSystem : MonoBehaviour
         }
     }
 
-    private void EndFishing() {
+    public void EndFishing() {
         isThereABite = false;
         hasPulled = false;
+        pullingGame.SetActive(false);
+        miniGame.SetActive(false);
         Debug.Log("Ending fishing");
     }
 

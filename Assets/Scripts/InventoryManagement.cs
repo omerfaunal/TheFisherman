@@ -37,6 +37,12 @@ public class InventoryManagement : MonoBehaviour
         }
     }
 
+    // Method to check if item exists in inventory
+    public bool HasItem(string itemName)
+    {
+        return items.Exists(item => item.itemName == itemName);
+    }
+
     public int GetItemQuantity(string itemName)
     {
         CollectibleItem existingItem = items.Find(item => item.itemName == itemName);

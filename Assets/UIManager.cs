@@ -55,7 +55,7 @@ public class UIManager : MonoBehaviour
     {
         errorText.text = message;
         errorText.gameObject.SetActive(true);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(5f);
         errorText.gameObject.SetActive(false);
     }
     
@@ -72,18 +72,23 @@ public class UIManager : MonoBehaviour
         {
             if (tasks[i].checkedState)
             {
-                GameObject newCheckedBox = Instantiate(checkedBoxPrefab,canvas.position,Quaternion.identity);
-                newCheckedBox.transform.parent = canvas;
-                newCheckedBox.transform.position = new Vector3(8, 550 - 30 * i,0);;
+                GameObject newCheckedBox = Instantiate(checkedBoxPrefab, canvas);
+                RectTransform rectTransform = newCheckedBox.GetComponent<RectTransform>();
+                rectTransform.anchorMin = new Vector2(0, 1); 
+                rectTransform.anchorMax = new Vector2(0, 1); 
+                rectTransform.pivot = new Vector2(0, 1);     
+                rectTransform.anchoredPosition = new Vector2(0, - 30 * i); 
                 newCheckedBox.GetComponentInChildren<TextMeshProUGUI>().text = tasks[i].description;
                 activeTasksUI.Add(newCheckedBox);
-
             }
             else
             {
-                GameObject newUncheckedBox =Instantiate(uncheckedBoxPrefab,canvas.position,Quaternion.identity);
-                newUncheckedBox.transform.parent = canvas;
-                newUncheckedBox.transform.position = new Vector3(8, 550 - 30 * i,0);
+                GameObject newUncheckedBox = Instantiate(uncheckedBoxPrefab, canvas);
+                RectTransform rectTransform = newUncheckedBox.GetComponent<RectTransform>();
+                rectTransform.anchorMin = new Vector2(0, 1); 
+                rectTransform.anchorMax = new Vector2(0, 1);
+                rectTransform.pivot = new Vector2(0, 1);    
+                rectTransform.anchoredPosition = new Vector2(0, - 30 * i); 
                 newUncheckedBox.GetComponentInChildren<TextMeshProUGUI>().text = tasks[i].description;
                 activeTasksUI.Add(newUncheckedBox);
             }

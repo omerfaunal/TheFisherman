@@ -24,6 +24,8 @@ public class FishTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             UIManager.instance.HideInfoMessage(); // Hide the collect text
+            FishingSystem.instance.EndFishing();
+            UIManager.instance.DisplayErrorMessage("You left the fishing area");
             isPlayerNear = false;
         }
     }
@@ -32,6 +34,15 @@ public class FishTrigger : MonoBehaviour
     {
         if (isPlayerNear && Input.GetKeyDown(KeyCode.F)) // Check if F is pressed when player is near
         {
+            InventoryManagement playerInventory = GameObject.FindGameObjectWithTag("Player").GetComponent<InventoryManagement>();
+            if(!playerInventory.HasItem("fixed rod")){
+                UIManager.instance.DisplayErrorMessage("You need a fixed fishing rod to fish");
+                return;
+            } 
+            if (!playerInventory.HasItem("bucket")){
+                UIManager.instance.DisplayErrorMessage("You need a bucket to fish");
+                return;
+            }
             FishingSystem.instance.StartFishing(waterSource);
         }
     }

@@ -51,33 +51,6 @@ public class CollectObject : MonoBehaviour
             {
                 playerInventory.AddItem(itemName, CollectibleItemType.Crafting);
                 taskManager.CheckTaskState();
-                switch (itemName)
-                {
-                    case "fishing rod":
-                        if (playerInventory.GetItemQuantity("log") == 3)
-                        {
-                            UIManager.instance.DisplaySuccessMessage("Nice! Now you need a bucket to put the fish you caught. Go to deadwood forest following pink trees");
-                        }
-                        else
-                        {
-                            UIManager.instance.DisplaySuccessMessage("Great! You found a fishing rod but it's broken. You need to collect 3 logs to fix it.");
-                        }
-                        
-                        break;
-                    case "log":
-                        if (itemQuantity != 2)
-                        {
-                            UIManager.instance.DisplaySuccessMessage("You need " + (2 - itemQuantity) + " logs more");
-                        }
-                        else
-                        {
-                            UIManager.instance.DisplaySuccessMessage("Nice! You fixed your fishing rod. Now you need a bucket to put the fish you caught. Go to deadwood forest following pink trees");
-                        }
-                        break;
-                    case "bucket":    
-                        UIManager.instance.DisplaySuccessMessage("Good news: You are ready to catch delicious fishes!");
-                        break;
-                }
                 playerInventory.DisplayInventory();
                 Destroy(gameObject); // Collect the item and destroy it
             }

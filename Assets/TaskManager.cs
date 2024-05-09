@@ -10,13 +10,13 @@ public class TaskManager : MonoBehaviour
     public Task[] activeTasks;
     public Dictionary<int, Task> tasks =new ()
     {
-        { 0, new Task("Find a fishing rod", new[] {1}, new Dictionary<string, int>(){ {"fishing rod",1}} )},
-        { 1, new Task("Collect 3 logs", new[] {2}, new Dictionary<string, int>(){ {"log",3}}) },
-        { 2, new Task("Find a bucket (follow pink trees to reach the hill)", new[] {3}, new Dictionary<string, int>(){ {"bucket",1}}) },
-        { 3, new Task("Catch 1 Tuna", new[] {4,5}, new Dictionary<string, int>(){ {"tuna",1}}) },
-        { 4, new Task("Catch 1 Salmon", new[] {6}, new Dictionary<string, int>(){ {"salmon",1}}) },
-        { 5, new Task("Catch 1 Carp", new[] {6}, new Dictionary<string, int>(){ {"carp",1}}) },
-        { 6, new Task("Catch 1 Largemouth", new int[] {}, new Dictionary<string, int>(){ {"largemouth",1}}) },
+        { 0, new Task(0, "Find a fishing rod", new[] {1}, new Dictionary<string, int>(){ {"fishing rod",1}}, "Great! You found a fishing rod but it's broken. You need to collect 3 logs to fix it." )},
+        { 1, new Task(1, "Collect 3 logs", new[] {2}, new Dictionary<string, int>(){ {"log",3}}, "Nice! You fixed your fishing rod. Now you need a bucket to put the fish you caught. Go to the hill in the deadwood forest following pink trees") },
+        { 2, new Task(2, "Find a bucket (follow pink trees to reach the hill)", new[] {3}, new Dictionary<string, int>(){ {"bucket",1}}, "Good news: You are ready to catch delicious fishes!") },
+        { 3, new Task(3, "Catch 1 Tuna (River Fish)", new[] {4}, new Dictionary<string, int>(){ {"tuna",1}}, "You completed river fishes.") },
+        { 4, new Task(4, "Catch 1 Salmon (Sea Fish)", new[] {5,6}, new Dictionary<string, int>(){ {"salmon",1}}, "You completed sea fishes.") },
+        { 5, new Task(5, "Catch 1 Carp (Lake Fish)", new int[] {}, new Dictionary<string, int>(){ {"carp",1}}, "You caught all the fishes in the game!") },
+        { 6, new Task(6, "Catch 1 Largemouth (Lake Fish)", new int[] {}, new Dictionary<string, int>(){ {"largemouth",1}}, "You caught all the fishes in the game!") },
     };
     
     // Start is called before the first frame update
@@ -35,11 +35,18 @@ public class TaskManager : MonoBehaviour
             if ( isRequirementFulfilled(task.requirements))
             {
                 task.checkedState = true;
+                if (task.id == 1) {
+                    inventoryManagement.AddItem("fixed rod", CollectibleItemType.Crafting);
+                }
             }
             else
             {
+                if(task.id == 1 ) {
+                    task.description = "Collect 3 logs" + " (" + inventoryManagement.GetItemQuantity("log") + "/3)";
+                 }
                 flag = false;
             }
+           
         }
 
         if (flag)
@@ -51,6 +58,8 @@ public class TaskManager : MonoBehaviour
             {
                 activeTasks[i] = tasks[activeTask.nextTasks[i]];
             }
+
+            uiManager.DisplaySuccessMessage(activeTask.successMessage);
         }
         
         uiManager.DisplayTasks(activeTasks);
