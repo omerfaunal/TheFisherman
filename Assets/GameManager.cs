@@ -1,11 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;  // Singleton instance
+    public GameObject gameOverPanel;
     void Awake()
     {
         // Ensure only one instance of GameManager exists
@@ -22,14 +23,15 @@ public class GameManager : MonoBehaviour
     {
         // Pause the game
         Time.timeScale = 0f;
-
-        if(win) {
-           
+        gameOverPanel.SetActive(true);
+        if(win)
+        {
+            gameOverPanel.GetComponentInChildren<TextMeshProUGUI>().text = "A Real Survivor!";
         } else {
-
+            gameOverPanel.GetComponent<Image>().color = Color.gray;
+            gameOverPanel.GetComponentInChildren<TextMeshProUGUI>().text = "AAAHHHH Try again";
         }
-
-        //gameOverScreen.SetActive(true);
+        
 
         // MuteAllSounds();
     }
@@ -46,6 +48,8 @@ public class GameManager : MonoBehaviour
 
     public void ExitGame()
     {
+        Debug.Log("Quiting game");
+        UnityEditor.EditorApplication.isPlaying = false;
         Application.Quit();
     }
 

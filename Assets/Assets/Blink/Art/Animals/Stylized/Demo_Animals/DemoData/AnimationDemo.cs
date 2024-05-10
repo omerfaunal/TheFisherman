@@ -81,6 +81,7 @@ namespace BLINK
             {
                 foreach (var animator in animators)
                 {
+                    Debug.Log(entries[entryIndex].animationName);
                     animator.SetBool(entries[entryIndex].animationName, true);
                 }
             }

@@ -13,7 +13,8 @@ public class UIManager : MonoBehaviour
     public GameObject checkedBoxPrefab;
     public Transform canvas;
     public GameObject uncheckedBoxPrefab;
-    private List<GameObject> activeTasksUI = new List<GameObject>(); 
+    private List<GameObject> activeTasksUI = new List<GameObject>();
+    public GameManager gameManager;
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -66,33 +67,39 @@ public class UIManager : MonoBehaviour
             Destroy(taskUI);
         }
         activeTasksUI.Clear();
-        
-        Debug.Log(tasks.Length);
-        for (var i = 0 ; i < tasks.Length ; i++)
+        if (tasks.Length == 0)
         {
-            if (tasks[i].checkedState)
+            gameManager.GameOver(true);
+        }
+        else
+        {
+            for (var i = 0 ; i < tasks.Length ; i++)
             {
-                GameObject newCheckedBox = Instantiate(checkedBoxPrefab, canvas);
-                RectTransform rectTransform = newCheckedBox.GetComponent<RectTransform>();
-                rectTransform.anchorMin = new Vector2(0, 1); 
-                rectTransform.anchorMax = new Vector2(0, 1); 
-                rectTransform.pivot = new Vector2(0, 1);     
-                rectTransform.anchoredPosition = new Vector2(0, - 30 * i); 
-                newCheckedBox.GetComponentInChildren<TextMeshProUGUI>().text = tasks[i].description;
-                activeTasksUI.Add(newCheckedBox);
-            }
-            else
-            {
-                GameObject newUncheckedBox = Instantiate(uncheckedBoxPrefab, canvas);
-                RectTransform rectTransform = newUncheckedBox.GetComponent<RectTransform>();
-                rectTransform.anchorMin = new Vector2(0, 1); 
-                rectTransform.anchorMax = new Vector2(0, 1);
-                rectTransform.pivot = new Vector2(0, 1);    
-                rectTransform.anchoredPosition = new Vector2(0, - 30 * i); 
-                newUncheckedBox.GetComponentInChildren<TextMeshProUGUI>().text = tasks[i].description;
-                activeTasksUI.Add(newUncheckedBox);
+                if (tasks[i].checkedState)
+                {
+                    GameObject newCheckedBox = Instantiate(checkedBoxPrefab, canvas);
+                    RectTransform rectTransform = newCheckedBox.GetComponent<RectTransform>();
+                    rectTransform.anchorMin = new Vector2(0, 1); 
+                    rectTransform.anchorMax = new Vector2(0, 1); 
+                    rectTransform.pivot = new Vector2(0, 1);     
+                    rectTransform.anchoredPosition = new Vector2(0, - 30 * i); 
+                    newCheckedBox.GetComponentInChildren<TextMeshProUGUI>().text = tasks[i].description;
+                    activeTasksUI.Add(newCheckedBox);
+                }
+                else
+                {
+                    GameObject newUncheckedBox = Instantiate(uncheckedBoxPrefab, canvas);
+                    RectTransform rectTransform = newUncheckedBox.GetComponent<RectTransform>();
+                    rectTransform.anchorMin = new Vector2(0, 1); 
+                    rectTransform.anchorMax = new Vector2(0, 1);
+                    rectTransform.pivot = new Vector2(0, 1);    
+                    rectTransform.anchoredPosition = new Vector2(0, - 30 * i); 
+                    newUncheckedBox.GetComponentInChildren<TextMeshProUGUI>().text = tasks[i].description;
+                    activeTasksUI.Add(newUncheckedBox);
+                }
             }
         }
+        
     }
     
 }
