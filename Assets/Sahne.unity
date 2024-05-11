@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.14696829, g: 0.36453757, b: 0.5796436, a: 1}
+  m_IndirectSpecularColor: {r: 0.1470247, g: 0.36394262, b: 0.5799059, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1228,11 +1228,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1121125582535847827, guid: 9854bb05e98038145add8ed7c25af4b1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.05
+      value: 3.03
       objectReference: {fileID: 0}
     - target: {fileID: 1121125582535847827, guid: 9854bb05e98038145add8ed7c25af4b1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 58.9
+      value: 59.943
       objectReference: {fileID: 0}
     - target: {fileID: 1121125582535847827, guid: 9854bb05e98038145add8ed7c25af4b1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2357,7 +2357,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 653588290}
   m_LocalRotation: {x: 0.06940825, y: 0, z: 0, w: 0.99758834}
-  m_LocalPosition: {x: 62.14988, y: 4.506, z: 59.02357}
+  m_LocalPosition: {x: 62.14988, y: 4.486, z: 60.06657}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3011,12 +3011,12 @@ MonoBehaviour:
   waitTime: 1
   animator: {fileID: 731557669}
   player: {fileID: 464279413}
-  fovAngle: 360
-  viewDistance: 1000
+  fovAngle: 90
+  viewDistance: 20
   obstacleMask:
     serializedVersion: 2
     m_Bits: 0
-  attackDistance: 1000
+  attackDistance: 2
 --- !u!95 &731557669 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 3734775969355451150, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
@@ -3294,7 +3294,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 828215098}
   m_LocalRotation: {x: 0.06940811, y: 0, z: 0, w: 0.99758834}
-  m_LocalPosition: {x: 60.154392, y: 3.906, z: 58.889282}
+  m_LocalPosition: {x: 60.154392, y: 3.886, z: 59.93228}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3665,7 +3665,7 @@ MonoBehaviour:
   animator: {fileID: 873610843}
   player: {fileID: 464279413}
   fovAngle: 90
-  viewDistance: 10
+  viewDistance: 20
   obstacleMask:
     serializedVersion: 2
     m_Bits: 0
@@ -4047,7 +4047,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 965030082}
   m_LocalRotation: {x: 0.06940811, y: 0, z: 0, w: 0.99758834}
-  m_LocalPosition: {x: 60.154392, y: 3.906, z: 58.889282}
+  m_LocalPosition: {x: 60.154392, y: 3.886, z: 59.93228}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5380,6 +5380,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1177231001}
   m_CullTransparentMesh: 1
+--- !u!1 &1190297903 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 128702, guid: e26ab9b14021ea34e8b777635b9d52e8, type: 3}
+  m_PrefabInstance: {fileID: 1933291756}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1190297908
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1190297903}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.47, y: 5.9986887, z: 5.3991895}
+  m_Center: {x: -0.000015363097, y: 2.9993443, z: -0.00001835823}
 --- !u!1001 &1190585450
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5779,6 +5797,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   miniGame: {fileID: 1496253114}
   pullingGame: {fileID: 850157949}
+  pullingGameTarget: {fileID: 0}
   lakeFishList:
   - {fileID: 11400000, guid: 7f6631d51e065f146810d9a471da1f56, type: 2}
   - {fileID: 11400000, guid: 17614a0583fcb2246a506f85fca133dd, type: 2}
@@ -7107,7 +7126,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 14, y: -84}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1566479728
 MonoBehaviour:

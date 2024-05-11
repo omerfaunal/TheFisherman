@@ -9,6 +9,7 @@ public class FishingSystem : MonoBehaviour
     public static FishingSystem instance{get;  set;}
     public GameObject miniGame;
     public GameObject pullingGame;
+    public PullingGameTarget pullingGameTarget;
     public List<FishData> lakeFishList = new List<FishData>();
     public List<FishData> riverFishList = new List<FishData>();
     public List<FishData> seaFishList = new List<FishData>();
@@ -28,27 +29,32 @@ public class FishingSystem : MonoBehaviour
     internal void StartFishing(WaterSource waterSource)
     {
         UIManager.instance.HideInfoMessage();
+        CameraSwitch cameraSwitch = GameObject.FindGameObjectWithTag("Player").GetComponent<CameraSwitch>();
+        cameraSwitch.SetCameraType(CameraType.FirstPerson, true);
         StartCoroutine(CatchFish(waterSource));
     }
 
     IEnumerator CatchFish(WaterSource waterSource){
-        Debug.Log("Catching fish");
-        yield return new WaitForSeconds(0.2f);
-        FishData fishData = ChooseRandomFish(waterSource);
-        if (fishData.fishName == "NoBite"){
-            UIManager.instance.DisplayErrorMessage("No fish bite");
-            EndFishing();
-        } else {
-            isThereABite = true;
-            Debug.LogWarning("Fish bite " + fishData.fishName);
-            StartCoroutine(StartFishChallenge(fishData));
-            
+        if(!isThereABite){
+            Debug.Log("Catching fish");
+            yield return new WaitForSeconds(0.2f);
+            FishData fishData = ChooseRandomFish(waterSource);
+            if (fishData.fishName == "NoBite"){
+                UIManager.instance.DisplayErrorMessage("No fish bite");
+                EndFishing();
+            } else {
+                isThereABite = true;
+                Debug.LogWarning("Fish bite " + fishData.fishName);
+                StartCoroutine(StartFishChallenge(fishData));
+            }
         }
+        
     }
 
     IEnumerator StartFishChallenge(FishData fishData)
     {
 
+        PushRod();
         while (!hasPulled){
             // if(!displayingMessage){
             //     UIManager.instance.DisplayInfoMessage("Press G to pull the fish");
@@ -61,7 +67,6 @@ public class FishingSystem : MonoBehaviour
             if(!isThereABite){
                 yield break;
             }
-            PushRod();
             yield return null;
         }
         yield return new WaitForSeconds(0.5f);
@@ -72,6 +77,9 @@ public class FishingSystem : MonoBehaviour
 
     private void PushRod()
     {
+        // GetNewTarget method is called from PullingGameTarget script
+        PullingGameTarget pgt = pullingGameTarget.GetComponent<PullingGameTarget>();
+        pgt.GetNewTarget();
         pullingGame.SetActive(true);
     }
 
@@ -92,6 +100,8 @@ public class FishingSystem : MonoBehaviour
         hasPulled = false;
         pullingGame.SetActive(false);
         miniGame.SetActive(false);
+        CameraSwitch cameraSwitch = GameObject.FindGameObjectWithTag("Player").GetComponent<CameraSwitch>();
+        cameraSwitch.ResetToDefaultCamera();
         Debug.Log("Ending fishing");
     }
 

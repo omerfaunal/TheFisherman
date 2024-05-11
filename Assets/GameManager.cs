@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
             gameOverPanel.GetComponentInChildren<TextMeshProUGUI>().text = "A Real Survivor!";
         } else {
             gameOverPanel.GetComponent<Image>().color = Color.gray;
-            gameOverPanel.GetComponentInChildren<TextMeshProUGUI>().text = "AAAHHHH Try again";
+            gameOverPanel.GetComponentInChildren<TextMeshProUGUI>().text = "AAAHHHH \n You are dead!";
         }
         
 

@@ -12,6 +12,11 @@ public class PullingGameTarget : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GetNewTarget();
+    }
+
+    public void GetNewTarget()
+    {
         // Set the target position to a random value between the min and max height
         transform.localPosition = new Vector3(transform.localPosition.x, Random.Range(minHeight, maxHeight), transform.localPosition.z);   
         transform.localScale = new Vector3(1, Random.Range(0.3f, 1),1);   
