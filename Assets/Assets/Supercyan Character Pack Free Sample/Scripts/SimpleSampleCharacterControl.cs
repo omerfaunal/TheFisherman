@@ -44,6 +44,9 @@ namespace Supercyan.FreeSample
         private bool m_isGrounded;
 
         private List<Collider> m_collisions = new List<Collider>();
+        public AudioClip footstepSound;
+        public AudioSource audioSource;
+        private bool isMuted = false;
 
         private void Awake()
         {
@@ -112,11 +115,35 @@ namespace Supercyan.FreeSample
             {
                 m_jumpInput = true;
             }
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                // Toggle mute state
+                isMuted = !isMuted;
+
+                // Mute/unmute audio based on the state
+                AudioListener.volume = isMuted ? 0 : 1;
+            }
         }
 
         private void FixedUpdate()
         {
             m_animator.SetBool("Grounded", m_isGrounded);
+            if (Input.GetAxis("Vertical") != 0)
+            {
+                if (!audioSource.isPlaying)
+                {
+                    // Play footstep sound
+                    audioSource.PlayOneShot(footstepSound);
+                }
+            }
+            else
+            {
+                // Stop footstep sound if not moving
+                if (audioSource.isPlaying)
+                {
+                    audioSource.Stop();
+                }
+            }
 
             switch (m_controlMode)
             {
